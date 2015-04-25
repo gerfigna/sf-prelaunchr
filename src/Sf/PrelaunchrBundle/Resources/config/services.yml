@@ -1,0 +1,24 @@
+services:
+    sf_prelaunchr.request_listener:
+        class: Sf\PrelaunchrBundle\EventListener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments: [ @router, @session, @doctrine.orm.default_entity_manager ] 
+        
+    sf_prelaunchr.user_mailer:
+        class:     Sf\PrelaunchrBundle\Library\UserMailer
+        arguments: 
+            mailer: "@mailer"
+            twig: "@twig"
+            mail_sender: "%mail_address_from%"
+            router: @router  
+            root_url: "%root_url%"
+            
+    sonata.admin.users:
+        class: Sf\PrelaunchrBundle\Admin\RegisteredUserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Users", label: "Registered Users" }
+        arguments:
+            - ~
+            - Sf\PrelaunchrBundle\Entity\RegisteredUser
+            - ~

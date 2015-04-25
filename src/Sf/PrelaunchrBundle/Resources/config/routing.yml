@@ -1,0 +1,14 @@
+sf_prelaunchr_new:
+    path:     /
+    defaults: { _controller: SfPrelaunchrBundle:User:new }
+
+sf_prelaunchr_refer:
+    path:     /refer-a-friend
+    defaults: { _controller: SfPrelaunchrBundle:User:refer }
+    
+    
+sf_prelaunchr_policy:
+    pattern: /privacy-policy
+    defaults:
+        _controller:  FrameworkBundle:Template:template
+        template:     'SfPrelaunchrBundle:User:policy.html.twig'

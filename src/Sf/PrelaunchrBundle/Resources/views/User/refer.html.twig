@@ -1,0 +1,93 @@
+{% extends "SfPrelaunchrBundle::layout.html.twig" %}
+
+{% block body_content %}
+    
+
+<div class="header">
+    <div class="content">
+        <p class="logo brandon">Harry&#8217;s</p>
+        <p class="byline brandon">THANK YOU FOR SIGNING UP</p>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="page-content clearfix">
+        <div class="mammoth">
+            <span class="need brandon">Shaving Is<br>Evolving</span>
+        </div>
+        <div class="share-wrap">
+            <p class="why brandon">Don't leave your friends behind</p>
+            <p class="title brandon">INVITE FRIENDS &<br>Earn Product</p>
+            <p class="subtitle brandon">Share your unique link via email, Facebook<br>or Twitter and earn Harry's goods for<br>each friend who signs up.</p>
+            <div class="copy-link brandon">{{ root_url }}?ref={{ user.referralCode }}</div>
+            {% set twitter_message = "#Shaving is evolving. Excited for @harrys to launch." %}
+            <div class="social-links">
+                <a href="http://www.facebook.com/sharer/sharer.php?u={{ root_url|url_encode() }}?ref={{ user.referralCode|url_encode() }}&title=Harrys" class="fb" target="_blank"></a>
+                <div class="sep"></div>
+                <a href="http://twitter.com/share?url={{ root_url|url_encode()}}?ref={{ user.referralCode|url_encode() }}&text={{ twitter_message|url_encode()  }}" class="twit" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% set referralsCount = user.referrals|length %}
+    
+
+    {% set stops = user.referralSteps %}
+    {% set found = false %}
+
+    {% for key,stop in stops %}
+        {% if stop["count"] <= referralsCount %}
+            {% set found = stop|merge({index: key }) %}
+        {% endif %}
+    {% endfor %}
+            
+ 
+<div class="prizes {{ found ? 'prize-'~ found["class"] }}">
+    <div class="page-content">
+        <p class="callout brandon">Here's How It Works:</p>
+        <ul class="products clearfix">
+            <li class="title brandon"><p class="friends">Friends Joined</p><p class="rewards">Harry's Product</p></li>
+            {% for stop in stops %}
+                <li class="product brandon {{( found and stop["count"] == found["count"]) ? ' selected'}} {{ stop["class"] == 'five' ? 'last' }}">
+                    <div class="circle">{{stop["count"] }}</div>
+                    <div class="sep"></div>
+                    <p>{{ stop["html"]|raw }}</p>
+
+                    <div class="tooltip">
+                        <img src="{{ stop["image"] }}" height="254">
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="progress">
+            <div class="mover">
+                <div class="bar clearfix"></div>
+            </div>
+        </div>
+
+        {% set words = '' %}
+        {% if referralsCount == 1 %}
+            {% set words = 'friend has' %}
+        {% else %}
+            {% set words = 'friends have' %}
+        {% endif %}
+
+        
+
+        {% if referralsCount == 0 %}
+            <p class="place brandon"><span>No</span> friends have joined...Yet!</p>
+        {% else %}
+            <p class="place brandon"><span>{{ referralsCount }}</span> {{ words }} joined</p>
+        {% endif %}
+        <p class="check brandon">Keep checking</p>
+
+        <p class="ship brandon">We ship to the U.S. (& Canada Soon)</p>        
+        <a class="policy brandon" href="{{ path('sf_prelaunchr_policy') }}" target="_blank">Privacy Policy</a>
+    </div>
+</div>
+        
+        
+{% endblock body_content %}
