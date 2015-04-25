@@ -3,7 +3,7 @@ sf-prelaunchr
 
 sf-prelaunchr is a Symfony2 adapted version of [harrystech/prelaunchr](https://github.com/harrystech/prelaunchr) originally written on Rails.
 
-View [How to Gather 100,000 E-mails in One Week](http://inbound.org/articles/view/how-to-gather-100-000-e-mails-in-one-week-includes-successful-templates-code-everything-you-need) for more information.
+Read [How to Gather 100,000 E-mails in One Week](http://inbound.org/articles/view/how-to-gather-100-000-e-mails-in-one-week-includes-successful-templates-code-everything-you-need) for more information.
 
 
 How to install
