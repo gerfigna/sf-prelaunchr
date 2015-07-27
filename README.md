@@ -26,4 +26,5 @@ php app/console fos:user:promote admin ROLE_ADMIN
 
 ```
 
+
 Customize it and endjoy !
